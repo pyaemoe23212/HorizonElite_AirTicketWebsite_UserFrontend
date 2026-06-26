@@ -3,7 +3,9 @@ import Layout from '../Layout.jsx'
 import Home from '../pages/Home.jsx'
 import SignUp from '../pages/SignUp.jsx'
 import SignIn from '../pages/SignIn.jsx'
-import FlightSearch from '../pages/FlightSearch.jsx'
+import FlightResults from '../pages/FlightResults.jsx'
+import PassengerForm from '../pages/PassengerForm.jsx'  // NEW
+import BookingPage from '../pages/BookingPage.jsx'      // NEW
 
 const router = createBrowserRouter([
   {
@@ -15,9 +17,17 @@ const router = createBrowserRouter([
         Component: Home
       },
       {
-        path: "/flights/search",
-        Component: FlightSearch
+        path: "/flight-results",
+        Component: FlightResults
       },
+      {
+        path: "/passengers",           // NEW
+        Component: PassengerForm
+      },
+      {
+        path: "/booking",              // NEW
+        Component: BookingPage
+      }
     ]
   },
   {

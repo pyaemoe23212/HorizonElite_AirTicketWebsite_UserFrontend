@@ -77,4 +77,53 @@ export const selectFlight = async (flightData) => {
   }
 };
 
+// ==================== PASSENGERS ====================
+
+/**
+ * Create a new passenger
+ * @param {Object} passengerData - Passenger information
+ * @returns {Promise}
+ */
+export const createPassenger = async (passengerData) => {
+  try {
+    const response = await api.post('/api/passengers', passengerData);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating passenger:', error);
+    throw error;
+  }
+};
+
+/**
+ * Delete a passenger
+ * @param {string} passengerId - The passenger ID to delete
+ * @returns {Promise}
+ */
+export const deletePassenger = async (passengerId) => {
+  try {
+    const response = await api.delete(`/api/passengers/${passengerId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting passenger:', error);
+    throw error;
+  }
+};
+
+// ==================== BOOKINGS ====================
+
+/**
+ * Create a booking with selected flight and passengers
+ * @param {Object} bookingData - Booking information
+ * @returns {Promise}
+ */
+export const createBooking = async (bookingData) => {
+  try {
+    const response = await api.post('/api/bookings', bookingData);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating booking:', error);
+    throw error;
+  }
+};
+
 export default api;

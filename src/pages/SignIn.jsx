@@ -44,7 +44,7 @@ function SignIn() {
       }
 
       // Redirect to flight search
-      navigate('/flights/search')
+      navigate('/')
     } catch (err) {
       // Error is already set in context
       console.error('Login error:', err)
