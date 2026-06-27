@@ -39,9 +39,19 @@ export default function BookingPage() {
     e.preventDefault();
     setError(null);
 
+    // Debug: Log all values
+    console.log('Booking validation check:');
+    console.log('selectedFlight:', selectedFlight);
+    console.log('selectedFlightId:', selectedFlightId);
+    console.log('passengers:', passengers);
+    console.log('passengers.length:', passengers?.length);
+    console.log('user:', user);
+    console.log('user.email_address:', user?.email_address);
+
     // Validate required fields
     if (!selectedFlight || !selectedFlightId || !passengers || passengers.length === 0 || !user?.email_address) {
       setError('Missing required booking information');
+      console.log('Validation failed - check console logs above');
       return;
     }
 
@@ -53,9 +63,6 @@ export default function BookingPage() {
         passenger_ids: passengerIds,
         total_payment_amount: parseFloat(totalPrice),
         currency_code: currencyCode,
-        trip_type: correctTripType,
-        cabin_class: cabinClass,
-        fare_brand_id: null,
       };
 
       const response = await createBooking(bookingData);
