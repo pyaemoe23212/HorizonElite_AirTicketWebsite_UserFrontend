@@ -15,7 +15,7 @@ export default function BookingPage() {
     selectedReturnFlightId = null,
     passengers,
     passengerIds,
-    tripType = 'ONE_WAY',
+    tripType = 'ONE_WAY', 
   } = location.state || {};
 
   const [loading, setLoading] = useState(false);
@@ -23,12 +23,31 @@ export default function BookingPage() {
   const [bookingSuccess, setBookingSuccess] = useState(null);
 
   // Calculate total price
-  const totalPrice = selectedFlight
-    ? (parseFloat(selectedFlight.selected_fare_price) * passengers.length).toFixed(2)
-    : '0.00';
+  // ===============================
+  // Booking Summary
+  // ===============================
 
-  const currencyCode = selectedFlight?.currency_code || 'USD';
-  const cabinClass = selectedFlight?.cabin_class || 'ECONOMY';
+  // Print EVERYTHING inside selectedFlight
+  // Find the correct price field automatically
+  const flightPrice =
+      Number(selectedFlight?.total_price || 0);
+
+  console.log("Flight Price =", flightPrice);
+
+  const totalPrice =
+  (
+      flightPrice *
+      passengers.length
+  ).toFixed(2);
+
+  console.log("Passengers =", passengers.length);
+  console.log("Total Price =", totalPrice);
+
+  const currencyCode =
+      selectedFlight?.currency_code || "USD";
+
+  const cabinClass =
+      selectedFlight?.cabin_class || "ECONOMY";
 
   // Determine correct trip_type
   // If returnFlight exists, it's ROUND_TRIP. Otherwise ONE_WAY
@@ -61,10 +80,13 @@ export default function BookingPage() {
         user_email_address: user.email_address,
         selected_flight_id: selectedFlightId,
         passenger_ids: passengerIds,
-        total_payment_amount: parseFloat(totalPrice),
+        total_payment_amount: Number(totalPrice),
         currency_code: currencyCode,
+        trip_type: correctTripType,
+        cabin_class: cabinClass,
+        fare_brand_id:
+            selectedFlight?.fare_brand_id || null
       };
-
       const response = await createBooking(bookingData);
       setBookingSuccess(response.booking);
     } catch (err) {
